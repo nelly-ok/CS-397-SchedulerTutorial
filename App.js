@@ -3,6 +3,9 @@ import React from 'react';
 import {SafeAreaView, ScrollView, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import {TextInput} from 'react-native-web';
 
+import CourseList from './components/CourseList';
+import Banner from './components/Banner';
+
 const schedule = {
   title: "CS Courses for 2018-2019",
   "courses": [
@@ -38,29 +41,6 @@ const App = () => {
   );
 };
 
-const Banner = ({title}) => (
-  <Text style={styles.bannerStyle}>{title}</Text>
-);
-
-const CourseList = ({courses}) => (
-  <ScrollView>
-    <View style={styles.courseList}>
-      {courses.map(course => <Course key={course.id} course={course} />)}
-    </View>
-  </ScrollView>
-);
-
-const getCourseNumber = course => (
-  course.id.slice(1)
-);
-
-const Course = ({course}) => (
-  <TouchableOpacity style={styles.courseButton}>
-    <Text style={styles.courseText}>
-      {`CS ${getCourseNumber(course)}\n${course.meets}`}
-    </Text>
-  </TouchableOpacity>
-);
 
 const styles = StyleSheet.create({
   container: {
@@ -68,30 +48,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#F1C40F',
     alignItems: 'center',
     justifyContent: 'center'
-  },
-  courseList: {
-    flex: 1,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  courseButton: {
-    flex: 1,
-    borderRadius: 5,
-    justifyContent: 'center',
-    alignItems: 'center',
-    margin: 10,
-    height: 60,
-    padding: 10,
-    minWidth: 90,
-    maxWidth: 90,
-    backgroundColor: '#66b0ff',
-  },
-  courseText:{
-    color: '#fff',
-    fontSize: 12,
-    textAlign: 'center',
   },
   textStyle: {
     color: 'white',

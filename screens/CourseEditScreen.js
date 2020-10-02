@@ -1,6 +1,6 @@
 import React from "react";
 import { SafeAreaView, ScrollView, StyleSheet, Text, View } from "react-native";
-import { useFormikContext, Formik, Form, Field } from "formik";
+import Form from "../components/Form"
 import * as Yup from "yup";
 
 const validationSchema = Yup.object().shape({
@@ -19,7 +19,7 @@ const validationSchema = Yup.object().shape({
 });
 
 const CourseEditScreen = ({ navigation, route }) => {
-  const { values, submitForm } = useFormikContext();
+
   const course = route.params.course;
   return (
     <SafeAreaView style={styles.container}>
@@ -31,7 +31,7 @@ const CourseEditScreen = ({ navigation, route }) => {
             meets: course.meets,
             title: course.title,
           }}
-          handleReset=""
+          onSubmit={console.log("fuck")}
         >
           <Form.Field
             name="id"

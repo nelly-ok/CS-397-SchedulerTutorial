@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { SafeAreaView, ScrollView, StyleSheet, Text, View } from "react-native";
-import Form from "../components/Form"
+import Form from "../components/Form";
 import * as Yup from "yup";
-import { firebase } from '../utils/firebase';
+import { firebase } from "../utils/firebase";
 
 const validationSchema = Yup.object().shape({
   id: Yup.string()
@@ -21,8 +21,22 @@ const validationSchema = Yup.object().shape({
 
 const CourseEditScreen = ({ navigation, route }) => {
   const course = route.params.course;
-  
-  
+
+  const [submitError, setSubmitError] = useState("");
+
+  async function handleSubmit(values) {
+    const { id, meets, title } = values;
+    const course = { id, meets, title };
+    firebase
+      .database()
+      .ref("courses")
+      .child(id)
+      .set(course)
+      .catch((error) => {
+        setSubmitError(error.message);
+      });
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
@@ -33,7 +47,7 @@ const CourseEditScreen = ({ navigation, route }) => {
             meets: course.meets,
             title: course.title,
           }}
-          onSubmit={console.log("fuck")}
+          onSubmit={ values => handleSubmit(values)}
         >
           <Form.Field
             name="id"
@@ -53,6 +67,8 @@ const CourseEditScreen = ({ navigation, route }) => {
             leftIcon="format-title"
             placeholder="Introduction to programming"
           />
+          <Form.Button title={"Update"} />
+          {<Form.ErrorMessage error={submitError} visible={true} />}
         </Form>
       </ScrollView>
     </SafeAreaView>

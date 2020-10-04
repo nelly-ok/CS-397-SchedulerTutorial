@@ -22,7 +22,10 @@ const ScheduleScreen = ({navigation}) => {
   useEffect(() => {
     const db = firebase.database().ref();
     const handleData = snap => {
-      if (snap.val()) setSchedule(fixCourses(snap.val()))    ;
+      if (snap.val()) {
+        setSchedule(fixCourses(snap.val()))    ;
+        console.log("fixed: ", fixCourses(snap.val()), "unfixed; ", snap.val());
+      }
     }
     db.on('value', handleData, error => alert(error));
     return () => { db.off('value', handleData);};

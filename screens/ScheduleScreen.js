@@ -13,7 +13,7 @@ const fixCourses = json => ({
   ...json,
   courses: Object.values(json.courses)
 });
-
+//aaddeed
 const ScheduleScreen = ({navigation}) => {
   const user = useContext(UserContext);
   const canEdit = user && user.role === 'admin';
